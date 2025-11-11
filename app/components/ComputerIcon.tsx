@@ -1,20 +1,30 @@
-export default function ComputerIcon() {
+import * as React from "react";
+
+type Props = React.SVGProps<SVGSVGElement>;
+
+export default function ComputerIcon({ width = 120, height = 120, ...rest }: Props) {
+  const stroke = "currentColor";
   return (
-    <div className="mt-6 flex items-center">
-      <div className="mx-auto md:mx-0 rounded-2xl px-5 py-4 shadow-[0_14px_34px_rgba(40,60,100,0.10)]"
-           style={{ background: "rgb(var(--bg1))" }}>
-        <svg
-          width="140" height="96" viewBox="0 0 140 96"
-          fill="none" stroke="rgb(var(--accent))" strokeWidth="3"
-          strokeLinecap="round" strokeLinejoin="round"
-        >
-          <rect x="10" y="10" width="120" height="76" rx="16"></rect>
-          <rect x="26" y="24" width="88" height="48" rx="12"></rect>
-          <circle cx="70" cy="48" r="14"></circle>
-          <path d="M78 40l-8 8 8 8M62 40l8 8-8 8"></path>
-          <path d="M40 86h60"></path>
-        </svg>
-      </div>
-    </div>
+    <svg
+      viewBox="0 0 256 256"
+      width={width}
+      height={height}
+      fill="none"
+      stroke={stroke}
+      strokeWidth={8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...rest}
+    >
+      {/* outer monitor */}
+      <rect x="24" y="40" width="208" height="152" rx="24" />
+      {/* inner bezel */}
+      <rect x="56" y="72" width="144" height="104" rx="18" />
+      {/* stand */}
+      <path d="M96 216h64" />
+      <path d="M112 192l-8 24" />
+      <path d="M152 192l8 24" />
+      {/* center left empty on purpose */}
+    </svg>
   );
 }

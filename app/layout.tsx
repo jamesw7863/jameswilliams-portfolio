@@ -1,29 +1,46 @@
+import type { Metadata } from "next";
 import "./globals.css";
-import NavBar from "./components/NavBar";
-import { Inter, DM_Serif_Display } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const dmSerif = DM_Serif_Display({ weight: "400", subsets: ["latin"], variable: "--font-dmserif" });
-
-export const metadata = {
+export const metadata: Metadata = {
   title: "James Williams — Portfolio",
-  description: "Software Engineer building clean, scalable solutions.",
+  description: "Software engineering projects and experience.",
 };
+
+/* Load fonts and expose as CSS vars that globals.css reads */
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400","500","600","700"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${dmSerif.variable}`}>
-        {/* centered pill nav */}
-        <header className="fixed top-6 left-0 right-0 z-50">
-          <NavBar />
+    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
+      <body className="bg-animate">
+        <header className="sticky top-0 z-40 nav-band">
+          <nav className="container flex items-center justify-center py-3">
+            <ul className="flex items-center gap-8 text-sm font-medium text-[rgb(25,35,55)]/85">
+              <li><a href="/" className="px-3 py-2 rounded-full hover:bg-black/5">HOME</a></li>
+              <li><a href="/about" className="px-3 py-2 rounded-full hover:bg-black/5">ABOUT</a></li>
+              <li><a href="/experience" className="px-3 py-2 rounded-full hover:bg-black/5">EXPERIENCE</a></li>
+              <li><a href="/projects" className="px-3 py-2 rounded-full hover:bg-black/5">PROJECTS</a></li>
+            </ul>
+          </nav>
         </header>
 
-        {/* top offset for fixed nav */}
-        <div className="pt-28">
-          <main>{children}</main>
-          <footer className="container py-10 text-xs text-muted">© {new Date().getFullYear()} James Williams.</footer>
-        </div>
+        {children}
+
+        <footer className="container py-8 text-xs text-muted">
+          © {new Date().getFullYear()} James Williams.
+        </footer>
       </body>
     </html>
   );

@@ -6,24 +6,27 @@ import ComputerIcon from "./ComputerIcon";
 
 export default function Hero() {
   return (
-    <section className="container pb-12 relative z-[1]">
-      <div className="panel px-6 py-8 md:px-10">
-        <div className="grid grid-cols-1 items-stretch gap-10 md:grid-cols-[1.1fr_.9fr]">
-          {/* Left */}
-          <div className="flex min-h-[360px] flex-col">
-            <div>
-              <h1 className="font-dmserif h0 leading-none">James Williams</h1>
-              <p className="mt-3 text-xl font-semibold text-[rgb(var(--accent))]">Software Engineer</p>
-              <p className="mt-3 text-lg text-muted max-w-prose">
-                Building clean, scalable solutions through design and code.
-              </p>
+    <section className="container py-10">
+      <div className="hero-card px-6 py-8 md:px-10 md:py-10">
+        <div className="grid items-center gap-10 md:grid-cols-[1.2fr_.85fr]">
+          {/* Left copy */}
+          <div>
+            <h1 className="h0">James Williams</h1>
+            
+
+            <p className="mt-3 text-lg text-muted max-w-prose">
+              Building clean, scalable solutions through design and code.
+            </p>
+
+            {/* Computer icon – nudged slightly right to sit under the sentence */}
+            <div className="mt-8 flex">
+              <div className="ml-6 md:ml-10 inline-flex rounded-2xl border border-surface bg-white/70 px-6 py-5 shadow-[0_10px_24px_rgba(40,60,100,0.12)]">
+                <ComputerIcon width={120} height={120} className="text-[rgb(var(--ink))]" />
+              </div>
             </div>
 
-            {/* Big computer icon centered in left column */}
-            <ComputerIcon />
-
-            {/* Icons at the bottom-left of card */}
-            <div className="mt-auto pt-6">
+            {/* Socials at the bottom of the card, left aligned */}
+            <div className="mt-10">
               <IconLinks
                 github="https://github.com/jamesw7863"
                 linkedin="https://www.linkedin.com/in/james-williamsiv/"
@@ -32,18 +35,18 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right: photo – object-top keeps a little space above hair, suit visible */}
-          <div className="relative overflow-hidden rounded-2xl"
-               style={{ background: "rgb(var(--bg1))", boxShadow: "0 18px 40px rgba(40,60,100,0.12)" }}>
-            <Image
-              src="/james.png"
-              alt="James Williams"
-              width={900}
-              height={1200}
-              className="h-[440px] w-full object-cover object-top md:h-[460px]"
-              priority
-              sizes="(min-width: 1024px) 520px, (min-width: 768px) 50vw, 100vw"
-            />
+          {/* Right photo – head near top, suit visible */}
+          <div className="relative">
+            <div className="rounded-2xl border border-surface shadow-[0_20px_48px_rgba(40,60,100,0.18)] overflow-hidden">
+              <Image
+                src="/james.png"
+                alt="James Williams headshot"
+                width={1100}
+                height={1400}
+                className="w-full h-[520px] object-cover object-top"
+                priority
+              />
+            </div>
           </div>
         </div>
       </div>

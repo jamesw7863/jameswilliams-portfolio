@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
+/* Palette tuned to the mock */
+:root{
+  --bg1: 248 246 241;      /* cream (#F8F6F1) */
+  --bg2: 188 208 236;      /* soft blue glow (#BCD0EC) */
+  --ink: 36 52 76;         /* deep slate/navy */
+  --muted: 102 119 142;    /* paragraph */
+  --accent: 36 52 76;      /* icon/nav text */
+  --shadow: 40 60 100;     /* for shadows */
+}
+
+html, body { height: 100%; }
+* { box-sizing: border-box; }
+
+/* === Uniform cream background ===
+   Animated blue glow lives on ::before. */
+body{
+  color: rgb(var(--ink));
+  background-color: rgb(var(--bg1));
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* animated gradient layer (no dots) */
+body::before{
+  content: "";
+  position: fixed;
+  inset: -20% -10% -20% -10%;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 900px at 80% 12%, rgba(var(--bg2),0.85), transparent 60%),
+    radial-gradient(1200px 900px at 12% 88%, rgba(var(--bg2),0.55), transparent 60%);
+  animation: glowShift 26s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes glowShift{
+  0%   { transform: translate3d(0,0,0) scale(1);    filter: blur(0px); }
+  50%  { transform: translate3d(-2%,2%,0) scale(1.03); filter: blur(0.3px); }
+  100% { transform: translate3d(2%,-2%,0) scale(1.06); filter: blur(0.6px); }
+}
+
+/* Fonts */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-inter: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-dmserif: "DM Serif Display", Georgia, serif;
 }
+body { font-family: var(--font-inter); }
+.font-dmserif { font-family: var(--font-dmserif); }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Layout helper */
+.container{ @apply mx-auto max-w-6xl px-4; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* === Components (all cream, no borders) === */
+@layer components {
+  .text-muted{ color: rgb(var(--muted)); }
+
+  /* Centered pill nav: same cream fill, bigger/wider, shadow only */
+  .nav-pill{
+    @apply rounded-full px-10 py-3 flex items-center gap-10;
+    background: rgb(var(--bg1));     /* IDENTICAL to page bg */
+    box-shadow: 0 16px 40px rgba(var(--shadow),0.12);
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Panels/cards: same cream, separated by shadow only */
+  .panel{
+    @apply rounded-3xl;
+    background: rgb(var(--bg1));     /* IDENTICAL to page bg */
+    box-shadow: 0 26px 60px rgba(var(--shadow),0.14);
+  }
+
+  .icon-btn{
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-xl transition;
+    background: rgb(var(--bg1));     /* same cream */
+    box-shadow: 0 10px 24px rgba(var(--shadow),0.12);
+  }
+  .icon-btn:hover{ transform: translateY(-1px); }
+
+  .h0{ @apply text-5xl md:text-6xl font-extrabold tracking-tight; }
 }
